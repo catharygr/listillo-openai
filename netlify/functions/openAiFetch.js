@@ -14,6 +14,12 @@ exports.handler = async function (event) {
       prompt: event.body,
       presence_penalty: 0,
 			frequency_penalty: 0.3,
+      max_tokens: 150,
+      stop: ["\n", " Human:", " AI:"],
+    });
+  
+
+
 
 
 
