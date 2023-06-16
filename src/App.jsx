@@ -9,7 +9,7 @@ function App() {
     },
     {
       role: "user",
-      content: "La pregunta de usuario sobre bla bla...",
+      content: "Cómo ha sido tu día hoy?.",
     },
   ];
   const url =
