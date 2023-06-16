@@ -1,21 +1,21 @@
 /* eslint-disable no-undef */
-import { Configuration, OpenAIApi } from "openai";
+// import { Configuration, OpenAIApi } from "openai";
 
-const openAiConf = new Configuration({
-  apiKey: process.env.REACT_APP_API_KEY,
-});
+// const openAiConf = new Configuration({
+//   apiKey: process.env.REACT_APP_API_KEY,
+// });
 
-const openai = new OpenAIApi(openAiConf);
-let dataDesdeOpenAI = [];
+// const openai = new OpenAIApi(openAiConf);
+// let dataDesdeOpenAI = [];
 
 exports.handler = async function (event) {
   const conversationArray = JSON.parse(event.body);
 
-  const response = await openai.createChatCompletion({
-    model: "gtp-3.5 turbo",
-    mesagges: conversationArray,
-  });
-  dataDesdeOpenAI = JSON.stringify(response);
+  // const response = await openai.createChatCompletion({
+  //   model: "gtp-3.5 turbo",
+  //   mesagges: conversationArray,
+  // });
+  // dataDesdeOpenAI = JSON.stringify(response);
 
   const headers = {
     "Access-Control-Allow-Origin": "http://localhost:8888",
@@ -23,6 +23,7 @@ exports.handler = async function (event) {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, HEAD,",
     "Access-Control-Max-Age": "86400",
   };
+
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 200,
@@ -33,7 +34,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers,
-      body: dataDesdeOpenAI,
+      body: JSON.stringify(conversationArray),
     };
   }
 };

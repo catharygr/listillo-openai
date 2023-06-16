@@ -12,10 +12,10 @@ function App() {
       content: "Cómo ha sido tu día hoy?.",
     },
   ];
-  const url =
-    "https://listillo-openai.netlify.app/.netlify/functions/openAiFetch";
 
   async function getOpenAIData() {
+    const url =
+      "https://listillo-openai.netlify.app/.netlify/functions/openAiFetch";
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ function App() {
     console.log(data);
   }
   getOpenAIData();
-  return <h1>Hola mundo</h1>;
+  return <h1>Hello word</h1>;
 }
 
 export default App;
