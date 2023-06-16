@@ -11,15 +11,11 @@ let dataDesdeOpenAI = [];
 exports.handler = async function (event) {
   const conversationArray = JSON.parse(event.body);
 
-  async function getResponse() {
-    const response = await openai.createChatCompletion({
-      model: "gtp-3.5 turbo",
-      mensagges: conversationArray,
-    });
-    dataDesdeOpenAI = JSON.stringify(response);
-  }
-
-  await getResponse();
+  const response = await openai.createChatCompletion({
+    model: "gtp-3.5 turbo",
+    mensagges: conversationArray,
+  });
+  dataDesdeOpenAI = JSON.stringify(response);
 
   const headers = {
     "Access-Control-Allow-Origin": "http://localhost:8888",
