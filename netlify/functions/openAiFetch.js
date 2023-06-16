@@ -13,7 +13,7 @@ exports.handler = async function (event) {
 
   const response = await openai.createChatCompletion({
     model: "gtp-3.5 turbo",
-    mensagges: conversationArray,
+    mesagges: conversationArray,
   });
   dataDesdeOpenAI = JSON.stringify(response);
 
