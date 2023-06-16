@@ -9,8 +9,6 @@
 // let dataDesdeOpenAI = [];
 
 exports.handler = async function (event) {
-  const conversationArray = JSON.parse(event.body);
-
   // const response = await openai.createChatCompletion({
   //   model: "gtp-3.5 turbo",
   //   mesagges: conversationArray,
@@ -31,6 +29,7 @@ exports.handler = async function (event) {
       body: "This was a preflight call!",
     };
   } else if (event.httpMethod === "POST") {
+    const conversationArray = JSON.parse(event.body);
     return {
       statusCode: 200,
       headers,
