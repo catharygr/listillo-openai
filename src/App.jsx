@@ -26,7 +26,7 @@ function App() {
     const data = await response.json();
     console.log(data);
   }
-  getOpenAIData();
+  // getOpenAIData();
 
   return <h1>Hello word</h1>;
 }
