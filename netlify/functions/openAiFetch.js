@@ -1,20 +1,13 @@
 /* eslint-disable no-undef */
-// import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi } from "openai";
 
-// const openAiConf = new Configuration({
-//   apiKey: process.env.REACT_APP_API_KEY,
-// });
+const openAiConf = new Configuration({
+  apiKey: process.env.REACT_APP_API_KEY,
+});
 
-// const openai = new OpenAIApi(openAiConf);
-// let dataDesdeOpenAI = [];
+const openai = new OpenAIApi(openAiConf);
 
 exports.handler = async function (event) {
-  // const response = await openai.createChatCompletion({
-  //   model: "gtp-3.5 turbo",
-  //   mesagges: conversationArray,
-  // });
-  // dataDesdeOpenAI = JSON.stringify(response);
-
   const headers = {
     "Access-Control-Allow-Origin": "http://localhost:8888",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -30,10 +23,16 @@ exports.handler = async function (event) {
     };
   } else if (event.httpMethod === "POST") {
     const conversationArray = JSON.parse(event.body);
+    const response = await openai.createChatCompletion({
+      model: "gtp-3.5-turbo",
+      messages: conversationArray,
+    });
+    const dataDesdeOpenAI = JSON.stringify(response.data.choices[0].message);
+
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(conversationArray),
+      body: dataDesdeOpenAI,
     };
   }
 };
