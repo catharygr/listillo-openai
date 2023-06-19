@@ -1,12 +1,11 @@
 import "./App.css";
+import { conversacionesRef } from "../scripts/firebase";
+import { push, get, remove } from "firebase/database";
+
+// https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
 function App() {
-  const conversacionArray = [
-    {
-      role: "system",
-      content:
-        "Tú eres un asistente virtual muy sabio que siempre estás dispuesto a ayudar",
-    },
+  const objectoInstrucciones = [
     {
       role: "user",
       content: "Cómo ha sido tu día hoy?.",
