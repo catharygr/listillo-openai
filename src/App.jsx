@@ -41,15 +41,25 @@ function App() {
           </header>
           <section className="chat-container">
             <div className="chat-listillo">
-              <p className="chat-listillo__content--text">
+              <p>
                 Hola, soy Listillo, tu asistente personal. ¿En qué puedo
                 ayudarte?
               </p>
-              <div className="chat-listillo__avatar">
-                <p>Me puedo sacar un moco</p>
-              </div>
+            </div>
+            <div className="chat-usuario">
+              <p>Me puedo sacar un moco</p>
             </div>
           </section>
+          <footer className="footer-container">
+            <form className="enviar-mensaje-container">
+              <input
+                className="enviar-mensaje-input"
+                type="text"
+                placeholder="Escribe tu mensaje"
+              />
+              <button className="enviar-mensaje-btn">Enviar</button>
+            </form>
+          </footer>
         </>
       )}
     </main>
