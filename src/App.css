@@ -23,9 +23,8 @@ h1 {
   max-width: 1000px;
   margin: 0 auto;
   background-color: black;
-  padding: 0 1rem;
+  padding: 0 1rem 1rem;
   height: 100dvh;
-  position: relative;
 }
 
 /* Login Componente */
@@ -144,9 +143,8 @@ h1 {
 }
 
 .footer-container {
-  position: fixed;
-  bottom: 0;
-  width: min(90%, 900px);) 
+  margin-top: auto;
+  width: min(90%, 900px);
 }
 .enviar-mensaje-container {
   display: flex;
@@ -156,13 +154,13 @@ h1 {
 
 .enviar-mensaje-input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.7rem;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border: none;
   background-color: #333;
-  color: white;
-  border: 1px solid #ff6f00;
+  color: aquamarine;
+  border: 1px solid aquamarine;
 }
 
 .enviar-mensaje-btn {
@@ -170,7 +168,7 @@ h1 {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: none;
-  background-color: #ff6f00;
+  background-color: aquamarine;
   color: #333;
   cursor: pointer;
   font-size: 0.9rem;

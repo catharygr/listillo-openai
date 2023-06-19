@@ -1,8 +1,9 @@
 import "./App.css";
-import { conversacionesRef } from "../scripts/firebase";
+import { auth, conversacionesRef } from "../scripts/firebase";
 import { push, get, remove } from "firebase/database";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./componente/login";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 // https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
@@ -30,6 +31,24 @@ function App() {
   }
   // getOpenAIData();
 
+  function handleSalir() {
+    signOut(auth)
+      .then(setEstaIniciado(false))
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setEstaIniciado(true);
+      } else {
+        setEstaIniciado(false);
+      }
+    });
+  }, []);
+
   return (
     <main className="main-container">
       {!estaIniciado && <Login setEstaIniciado={setEstaIniciado} />}
@@ -37,7 +56,9 @@ function App() {
         <>
           <header className="header-container">
             <h1>Chatea con Listillo</h1>
-            <button className="btn">Salir</button>
+            <button onClick={handleSalir} className="btn">
+              Salir
+            </button>
           </header>
           <section className="chat-container">
             <div className="chat-listillo">
