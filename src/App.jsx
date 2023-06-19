@@ -1,10 +1,13 @@
 import "./App.css";
 import { conversacionesRef } from "../scripts/firebase";
 import { push, get, remove } from "firebase/database";
+import { useState } from "react";
+import Login from "./componente/login";
 
 // https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
 function App() {
+  const [estaIniciado, setEstaIniciado] = useState(false);
   const objectoInstrucciones = [
     {
       role: "user",
@@ -27,7 +30,30 @@ function App() {
   }
   // getOpenAIData();
 
-  return <h1>Hello word</h1>;
+  return (
+    <main className="main-container">
+      {!estaIniciado && <Login setEstaIniciado={setEstaIniciado} />}
+      {estaIniciado && (
+        <>
+          <header className="header-container">
+            <h1>Chatea con Listillo</h1>
+            <button className="btn">Salir</button>
+          </header>
+          <section className="chat-container">
+            <div className="chat-listillo">
+              <p className="chat-listillo__content--text">
+                Hola, soy Listillo, tu asistente personal. ¿En qué puedo
+                ayudarte?
+              </p>
+              <div className="chat-listillo__avatar">
+                <p>Me puedo sacar un moco</p>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+    </main>
+  );
 }
 
 export default App;

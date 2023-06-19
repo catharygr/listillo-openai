@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyArBNm3g4g7bTG0khz-V-yJzhDdJGpYvAQ",
@@ -16,3 +17,4 @@ const app = initializeApp(firebaseConfig);
 // Obtener la referencia a la base de datos
 const db = getDatabase(app);
 export const conversacionesRef = ref(db, "conversaciones");
+export const auth = getAuth(app);
