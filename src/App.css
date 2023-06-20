@@ -25,6 +25,7 @@ h1 {
   background-color: black;
   padding: 0 1rem 1rem;
   height: 100dvh;
+  overflow: scroll;
 }
 
 /* Login Componente */
@@ -95,6 +96,10 @@ h1 {
   width: 100%;
   border-bottom: 2px solid aquamarine;
   padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  width: min(90%, 900px);
+  background-color: black;
 }
 
 .btn {
@@ -119,23 +124,24 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 90%;
-  margin-top: 2rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
   gap: 1rem;
 }
 
-.chat-listillo,
-.chat-usuario {
+.chat-assistant,
+.chat-user {
   padding: 1rem;
   border-radius: 20px;
   max-width: 80%;
 }
-.chat-listillo {
+.chat-assistant {
   background-color: aquamarine;
   align-self: flex-start;
   color: #333;
   border-bottom-right-radius: 0px;
 }
-.chat-usuario {
+.chat-user {
   background-color: #333;
   align-self: flex-end;
   color: aquamarine;
@@ -145,6 +151,8 @@ h1 {
 .footer-container {
   margin-top: auto;
   width: min(90%, 900px);
+  position: fixed;
+  bottom: 0;
 }
 .enviar-mensaje-container {
   display: flex;
@@ -168,8 +176,8 @@ h1 {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border: none;
-  background-color: aquamarine;
-  color: #333;
+  background-color: #333;
+  color: aquamarine;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: bold;

@@ -1,7 +1,7 @@
 import "./App.css";
 import { auth, conversacionesRef } from "../scripts/firebase";
 import { push, get, remove } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Login from "./componente/login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { onValue } from "firebase/database";
@@ -12,6 +12,8 @@ function App() {
   const [estaIniciado, setEstaIniciado] = useState(false);
   const [mensajesFormulario, setMensajesFormulario] = useState("");
   const [conversacion, setConversacion] = useState([]);
+
+  const scrollRef = useRef(null);
 
   const objectoInstrucciones = {
     role: "system",
@@ -83,10 +85,16 @@ function App() {
     return () => cancelarOnValue();
   }, []);
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [conversacion]);
+
   //  Mapear los mensajes de la base de datosq
   const mapeo = conversacion.map((mensaje, index) => {
     return (
-      <div key={index} className="chat-usuario">
+      <div key={index} className={`chat-${mensaje.role}`}>
         <p>{mensaje.content}</p>
       </div>
     );
@@ -103,8 +111,8 @@ function App() {
               Salir
             </button>
           </header>
-          <section className="chat-container">
-            <div className="chat-listillo">
+          <section ref={scrollRef} className="chat-container">
+            <div className="chat-assistant">
               <p>
                 Hola, soy Listillo, tu asistente personal. ¿En qué puedo
                 ayudarte?
