@@ -4,6 +4,7 @@ import { push, get, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import Login from "./componente/login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onValue } from "firebase/database";
 
 // https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
@@ -24,15 +25,16 @@ function App() {
       content: mensajesFormulario,
     });
     get(conversacionesRef).then((snapshot) => {
-      const conversacionesArray = Object.values(snapshot.val());
-      console.log(conversacionesArray);
-      setConversacion(conversacionesArray);
-      // conversacionesArray.unshift(objectoInstrucciones);
+      const conversacionesArray1 = Object.values(snapshot.val());
+      setConversacion(conversacionesArray1);
+      const conversacionesArray2 = Object.values(snapshot.val());
+      conversacionesArray2.unshift(objectoInstrucciones);
+      getOpenAIData(conversacionesArray2);
     });
     setMensajesFormulario("");
   }
 
-  async function getOpenAIData() {
+  async function getOpenAIData(conversacionArray) {
     const url =
       "https://listillo-openai.netlify.app/.netlify/functions/openAiFetch";
     const response = await fetch(url, {
@@ -43,9 +45,8 @@ function App() {
       body: JSON.stringify(conversacionArray),
     });
     const data = await response.json();
-    console.log(data);
+    push(conversacionesRef, data);
   }
-  // getOpenAIData();
 
   function handleSalir() {
     signOut(auth)
@@ -63,6 +64,19 @@ function App() {
         setEstaIniciado(false);
       }
     });
+  }, []);
+
+  // Cargar mensajes de la base de datos al iniciar la aplicación
+  useEffect(() => {
+    const cancelarOnValue = onValue(conversacionesRef, (snapshot) => {
+      if (snapshot.val()) {
+        const conversacionesArray = Object.values(snapshot.val());
+        setConversacion(conversacionesArray);
+      } else {
+        setConversacion([]);
+      }
+    });
+    return () => cancelarOnValue();
   }, []);
 
   const mapeo = conversacion.map((mensaje, index) => {
