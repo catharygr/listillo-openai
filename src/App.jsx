@@ -9,12 +9,28 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function App() {
   const [estaIniciado, setEstaIniciado] = useState(false);
-  const objectoInstrucciones = [
-    {
+  const [mensajesFormulario, setMensajesFormulario] = useState("");
+  const [conversacion, setConversacion] = useState([]);
+
+  const objectoInstrucciones = {
+    role: "system",
+    content: "Soy una asistente muy útil siempre dispuesto a ayudar.",
+  };
+
+  function handleEnviarMensaje(e) {
+    e.preventDefault();
+    push(conversacionesRef, {
       role: "user",
-      content: "Cómo ha sido tu día hoy?.",
-    },
-  ];
+      content: mensajesFormulario,
+    });
+    get(conversacionesRef).then((snapshot) => {
+      const conversacionesArray = Object.values(snapshot.val());
+      console.log(conversacionesArray);
+      setConversacion(conversacionesArray);
+      // conversacionesArray.unshift(objectoInstrucciones);
+    });
+    setMensajesFormulario("");
+  }
 
   async function getOpenAIData() {
     const url =
@@ -49,6 +65,14 @@ function App() {
     });
   }, []);
 
+  const mapeo = conversacion.map((mensaje, index) => {
+    return (
+      <div key={index} className="chat-usuario">
+        <p>{mensaje.content}</p>
+      </div>
+    );
+  });
+
   return (
     <main className="main-container">
       {!estaIniciado && <Login setEstaIniciado={setEstaIniciado} />}
@@ -67,16 +91,19 @@ function App() {
                 ayudarte?
               </p>
             </div>
-            <div className="chat-usuario">
-              <p>Me puedo sacar un moco</p>
-            </div>
+            {mapeo}
           </section>
           <footer className="footer-container">
-            <form className="enviar-mensaje-container">
+            <form
+              onSubmit={handleEnviarMensaje}
+              className="enviar-mensaje-container"
+            >
               <input
                 className="enviar-mensaje-input"
                 type="text"
                 placeholder="Escribe tu mensaje"
+                value={mensajesFormulario}
+                onChange={(e) => setMensajesFormulario(e.target.value)}
               />
               <button className="enviar-mensaje-btn">Enviar</button>
             </form>

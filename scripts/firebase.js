@@ -6,6 +6,8 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyArBNm3g4g7bTG0khz-V-yJzhDdJGpYvAQ",
   authDomain: "listillo-openai-caty.firebaseapp.com",
+  databaseURL:
+    "https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "listillo-openai-caty",
   storageBucket: "listillo-openai-caty.appspot.com",
   messagingSenderId: "727968867652",
