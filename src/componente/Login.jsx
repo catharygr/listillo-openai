@@ -27,7 +27,7 @@ export default function Login({ setEstaIniciado }) {
 
   return (
     <section className="login-container">
-      <h1 className="login-title">Entrar</h1>
+      <h1 className="login-title">Loguear</h1>
       <form className="login-form" onSubmit={loginFirebase}>
         <label className="login-label" htmlFor="email">
           Email

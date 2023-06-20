@@ -18,6 +18,7 @@ function App() {
     content: "Soy una asistente muy útil siempre dispuesto a ayudar.",
   };
 
+  // Función para enviar mensajes a la base de datos
   function handleEnviarMensaje(e) {
     e.preventDefault();
     push(conversacionesRef, {
@@ -34,6 +35,7 @@ function App() {
     setMensajesFormulario("");
   }
 
+  // Función para obtener los datos de OpenAI
   async function getOpenAIData(conversacionArray) {
     const url =
       "https://listillo-openai.netlify.app/.netlify/functions/openAiFetch";
@@ -48,6 +50,7 @@ function App() {
     push(conversacionesRef, data);
   }
 
+  // Función para salir de la aplicación
   function handleSalir() {
     signOut(auth)
       .then(setEstaIniciado(false))
@@ -56,6 +59,7 @@ function App() {
       });
   }
 
+  // Comprobar si el usuario está logueado
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -79,6 +83,7 @@ function App() {
     return () => cancelarOnValue();
   }, []);
 
+  //  Mapear los mensajes de la base de datosq
   const mapeo = conversacion.map((mensaje, index) => {
     return (
       <div key={index} className="chat-usuario">
