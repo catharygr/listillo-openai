@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Login from "./componente/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { onValue } from "firebase/database";
+import robot from "./assets/robot.png";
 
 // https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
@@ -85,9 +86,10 @@ function App() {
     return () => cancelarOnValue();
   }, []);
 
+  // Scroll al final del chat al enviar un mensaje nuevo usando scrollRef
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, [conversacion]);
 
@@ -106,7 +108,19 @@ function App() {
       {estaIniciado && (
         <>
           <header className="header-container">
-            <h1>Chatea con Listillo</h1>
+            <div>
+              <h1>Chatea con Listillo</h1>
+              <div className="header-img">
+                <img src={robot} alt="Robot" />
+                <button
+                  onClick={() => remove(conversacionesRef)}
+                  className="btn-resetear"
+                >
+                  Borrar
+                </button>
+              </div>
+            </div>
+
             <button onClick={handleSalir} className="btn">
               Salir
             </button>
@@ -119,6 +133,9 @@ function App() {
               </p>
             </div>
             {mapeo}
+            <br />
+            <br />
+            <br />
           </section>
           <footer className="footer-container">
             <form
