@@ -2,14 +2,14 @@ import "./App.css";
 import { auth, conversacionesRef } from "../scripts/firebase";
 import { push, get, remove } from "firebase/database";
 import { useEffect, useState, useRef } from "react";
-import Login from "./componente/login";
+import Login from "./componente/Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { onValue } from "firebase/database";
 
 // https://listillo-openai-caty-default-rtdb.europe-west1.firebasedatabase.app/ - Firebase
 
 function App() {
-  const [estaIniciado, setEstaIniciado] = useState(false);
+  const [estaIniciado, setEstaIniciado] = useState(true);
   const [mensajesFormulario, setMensajesFormulario] = useState("");
   const [conversacion, setConversacion] = useState([]);
 
